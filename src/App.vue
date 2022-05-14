@@ -3,12 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import { emit as appEmit } from '@tauri-apps/api/event'
+import { invoke } from '@tauri-apps/api/tauri'
+import { dialog } from '@tauri-apps/api'
 
-const test = () => {
-  appEmit('click', {
-    message: 'test'
+const test = async() => {
+  const res = await invoke('my_custom_command', {
+    data: {
+      msg1: 'hello',
+      msg2: 'world'
+    },
   })
+  // const res = await dialog.open()
+  console.log(res)
 }
 </script>
 
